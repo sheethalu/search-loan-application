@@ -5,7 +5,7 @@ by Sheethal U — Technical Writer | Manual QA
 This repository showcases a collection of well-structured, tested and developer-friendly API documentations written in Markdown.
 
 ## About Me
-I’m Sheethal U, a Manual QA Engineer and technical writer specializing in Manual QA, API Testing, API documentation, and developer manuals.
+I’m Sheethal U, a Manual QA Engineer and technical writer specializing in Manual testing, API Testing, API documentation, and developer manuals.
 
 ## Portfolio Projects
 Below folder contains a Markdown documentation (README.md), Test cases, Postman collection, and Postman documentation for a specific API or developer use case.
