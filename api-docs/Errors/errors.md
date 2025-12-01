@@ -11,15 +11,20 @@ HTTP Status Code Summary
 
 ```json
 {
-        "applicationId": "APPID2025XYZ001",
-        "customerName": "John Doe",
-        "loanType": "Home Loan",
-        "status": "Approved",
-        "amount": 500000,
-        "submittedBy": "AgentA",
-        "submissionDate": "2025-06-15",
-        "branchCode": "BR001"
+  "status": "success",
+  "applications": [
+    {
+      "applicationId": "APPID2025XYZ001",
+      "customerName": "John Doe",
+      "loanType": "Home Loan",
+      "status": "Approved",
+      "amount": 250000,
+      "submittedBy": "Officer A",
+      "submissionDate": "2025-01-20",
+      "branchCode": "BR001"
     }
+  ]
+}
 
 ```
 
@@ -30,20 +35,23 @@ Invalid input fields.
 
 ```json
 {
-  "error": "Invalid Acknowledgment Number"
+  "status": "error",
+  "errorCode": "ERR_INVALID_ACK",
+  "message": "Invalid Acknowledgment Number"
 }
 
 {
-  "error": "Invalid Reference Number"
+  "status": "error",
+  "errorCode": "ERR_INVALID_REF",
+  "message": "Invalid Reference Number"
 }
 
 {
-  "error": "Invalid Application ID"
+  "status": "error",
+  "errorCode": "ERR_INVALID_APPID",
+  "message": "Invalid Application ID"
 }
 
-{
-  "error": "Application Year is required"
-}
 ```
 
 ### 402	Request Failed  
@@ -52,7 +60,9 @@ The parameters were valid but the request failed.
 
 ```json
 {
-    "error": "Something went wrong, please try again after sometime"
+  "error": "Something went wrong",
+  "errorCode": "ERR_402",
+  "message": "Something went wrong, please try again after sometime"
 }
 ```
 
@@ -62,6 +72,8 @@ The requested resource doesn’t exist.
 
 ```json
 {
-  "error": "No applications found"
+  "error": "Missing mandatory field",
+  "errorCode": "ERR_MIS_APPYR",
+  "message": "Application Year is required"
 }
 ```

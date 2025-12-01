@@ -1,92 +1,38 @@
 # Overview & Getting Started
 
 ## Purpose
-This API lets a loan officer search existing loan applications using simple filters (acknowledgment number, reference number, application ID, loan status, year).
+This API lets a loan officer search existing loan applications using simple search filters (acknowledgment number, reference number, application ID, loan status, year).
 
-**Base URL:** `https://loan-app-mock.free.beeceptor.com`
+**Base URL:** `https://a8fcbf71-9a93-43f6-ab3c-b95b953b1c57.mock.pstmn.io/`
 
 ## What you need
 - A tool to make HTTP requests (Postman).
-- For this mock, **no authentication** is required.
+- For this mock, **authentication** is required.
 
 ## Authentication
-This mock API does **not** require auth.
+Auth uses JSON Web Tokens (JWT) sent in the Authorization header: `Authorization: Bearer <access_token>.`
 
-> **Note:**  
-> In a real system you would typically include:  
-> - `Authorization: Bearer <token>` header for protected endpoints.  
-> - Token obtained via OAuth2 client credentials or an SSO flow.  
+## UI Expectations and Filters (Business Rules):
 
-## Filters (Business Rules)
+- Three text inputs (Acknowledgment Number, Reference Number, Application Id).
 - **Acknowledgment Number**: 1–15 alphanumeric (case-insensitive). Anything else → *Invalid Acknowledgment Number*.  
-- **Reference Number**: 1–15 alphanumeric. Anything else → *Invalid Reference Number*.  
-- **Application Id**: 1–15 alphanumeric. Anything else → *Invalid Application ID*.  
-- **Loan Status**: one of `Approved`, `Rejected`.  
-- **Application Year**: **(Required)** Allowed: `2023`, `2024`, `2025`. Default UI value: `2025`.  
+- **Reference Number**: 1–15 alphanumeric (case-insensitive). Anything else → *Invalid Reference Number*.  
+- **Application Id**: 1–15 alphanumeric (case-insensitive). Anything else → *Invalid Application ID*.  
+- Two dropdowns (Loan Status, Application Year).
+- **Loan Status**: one of `Approved`,`Pending`, `Rejected`. 
+- Application Year is auto-selected to current year (2025) and a mandatory field. 
+- **Application Year**: **(Required)** Allowed: `2023`, `2024`, `2025`. Default UI value: `2025`. 
 
-## Quick Start
+### Search results table fields:
 
-### 1. Fetch dropdowns for UI population:
+| Application ID |  Customer Name | Loan Type| Status | Amount| Submitted By| Submission Date| Branch Code|
+|----------------|----------------|----------|--------|-------|-------------|----------------|-----------|
+|APPID2025XYZ001 | John Doe       |Home Loan |Approved|250000 | Officer A   |2025-01-20      |BR001      |   
 
-**Request**
+## Endpoints:
 
-GET https://loan-app-mock.free.beeceptor.com/dropdowns/filters
+**Login- Auth**
+- `https://a8fcbf71-9a93-43f6-ab3c-b95b953b1c57.mock.pstmn.io/auth/login`
 
-**Response (200 OK)**
-
-```json
-{
-  "loanStatus": ["Approved", "Rejected"],
-  "applicationYear": ["2023", "2024", "2025"]
-}
-
-```
-### 2. Search applications (year required): 
-
-**Request**  
-
-POST https://loan-app-mock.free.beeceptor.com/applications/search  
-Content-Type: application/json
-
-```json
-
-{
-  "applicationYear": "2025"
-}
-
-```
-
-**Response**
-
-```json
-[
-  {
-    "applicationId": "APP123",
-    "customerName": "Alice Smith",
-    "loanType": "Personal Loan",
-    "status": "Rejected",
-    "amount": 50000,
-    "submittedBy": "Agent02",
-    "submissionDate": "2025-03-01",
-    "branchCode": "BR456"
-  }
-]
-
-```
-
-**UI Expectations**
-
-Year is auto-selected to current year (2025).
-
-Three text inputs (Acknowledgment Number, Reference Number, Application Id).
-
-Two dropdowns (Loan Status, Application Year).
-
-Search results table fields:
-
-Application ID, Customer Name, Loan Type, Status, Amount, Submitted By, Submission Date, Branch Code.
-
-
-
-
-
+**Search loans**
+- `https://a8fcbf71-9a93-43f6-ab3c-b95b953b1c57.mock.pstmn.io/search-loans`
